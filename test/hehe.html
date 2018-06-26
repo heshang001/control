@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="src/css/main.css">
+    <link rel="stylesheet" href="src/css/progressBar.css">
+    <link rel="stylesheet" href="src/css/comboBox.css">
+    <script src="src/lib/jquery-3.3.1.min.js"></script>
+    <script src="src/lib/vue.js"></script>
+    <!--core 基础类 必须在首位-->
+    <script src="src/js/root/base/EventPrope.js"></script>
+    <script src="src/js/root/base/DomCacheRefresh.js"></script>
+    <script src="src/js/root/base/EventBase.js"></script>
+    <script src="src/js/root/base/EventCycle.js"></script>
+    <script src="src/js/root/base/ControlDisplayBase.js"></script>
+    <script src="src/js/root/base/ControlEventBase.js"></script>
+    <script src="src/js/root/base/ControlReflex.js"></script>
+    <!--end core-->
+    <script src="src/js/root/errlog/ErrLog.js"></script>
+    <!--utils 工具类 -->
+    <script src="src/js/root/utils/utils.js"></script>
+    <!--end utils-->
+
+    <!--control 控件类 可以无序-->
+    <script src="src/js/root/control/Base.js"></script>
+    <script src="src/js/root/control/Button.js"></script>
+    <script src="src/js/root/control/Label.js"></script>
+    <script src="src/js/root/control/Box.js"></script>
+    <script src="src/js/root/control/Input.js"></script>
+    <script src="src/js/root/control/Radio.js"></script>
+    <script src="src/js/root/control/RadioGroup.js"></script>
+    <script src="src/js/root/control/CheckBox.js"></script>
+    <script src="src/js/root/control/CheckGroup.js"></script>
+    <script src="src/js/root/control/ProgressBar.js"></script> 
+    <script src="src/js/root/control/ComboBox.js"></script>
+    <!--end control-->
+</head>
+ <body>
+<comboBox 
+    data-control-type="control.ComboBox" 
+    data-selectList="c.selectList" 
+    data-disUsed="true" 
+    evt-change="c.change(this.curSelectObj)">
+</comboBox>
+<comboBox 
+    data-control-type="control.ComboBox"  
+    data-selectList="c.selectList" 
+    data-selectNotFoundText="c.selectNotFoundText" 
+    data-defaultIndex = "c.defaultIndex" 
+    data-defaultStyle = "c.comboBoxStyle" 
+    data-disScroll = "c.disScroll"
+    evt-change= "c.change(this.curSelectObj)">
+</comboBox>
+
+<!-- <comboBox data-control-type="control.ComboBox" data-config="c" evt-change="c.change(this.curSelectObj)"></comboBox> -->
+
+<script>
+    
+
+    // -------------------------------ComboBox-------------------------------------------------------
+ 
+    var c = {
+        selectList: [
+            {   
+                value: '1',
+                index: '0',
+                name: '斜阳暮',
+                child: []
+            },
+            {
+                value: '2',
+                index: '1',
+                name: '星',
+                child: [{
+                    value: '1-1',
+                    index: '0',
+                    name: '斜阳暮系列一',
+                    child: []
+                },
+                {
+                    value: '1-2',
+                    index: '1',
+                    name: '斜阳暮系列二',
+                    child: []
+                }]
+            },
+            {
+                value: '3',
+                index: '2',
+                name: '星际迷航',
+                child: []
+            },
+            {
+                value: '4',
+                index: '3',
+                name: '科技战姬',
+                child: []
+            },
+            {
+                value: '3',
+                index: '4',
+                name: '星际迷航',
+                child: []
+            },
+            {
+                value: '4',
+                index: '5',
+                name: '科技战姬',
+                child: []
+            },
+            {
+                value: '3',
+                index: '6',
+                name: '星际迷航',
+                child: []
+            },
+            {
+                value: '4',
+                index: '78',
+                name: '科技战姬',
+                child: []
+            },
+            {
+                value: '5',
+                index: '8',
+                name: '星际迷航',
+                child: []
+            },
+            {
+                value: '6',
+                index: '9',
+                name: '科技战姬',
+                child: []
+            }
+        ],
+        selectNotFoundText: '没有呢>>>',
+        defaultIndex: '1',
+        comboBoxStyle: 'mystyle',
+        disUsed: false,
+        disScroll: false,
+        change(val) {
+            console.log('单个当前选中值', val);
+        }
+    }
+    
+    // comboBox.curSelectObj 为当前选中值 
+
+    base.reflex.ready(base.Handler.create(function () {
+        comboBox = new control.ComboBox({
+            selectList : c.selectList,                              // 数据
+            selectNotFoundText: '无数据',                           // 当没有数据时显示什么        默认显示[无匹配数据]
+            defaultIndex : '1',                                     // 设置默认当的前选中值，     默认选中第一个
+            disUsed: false,                                        // 是否禁用                  默认false
+            comboBoxStyle: control.ComboBox.DEFAULT_STYLE,          // 选择定义好的样式,或者是自己定义的class名  默认橙色皮肤
+            disScroll: false                                         // 是否隐藏滚动条 ---默认false
+        });
+        base.reflex.box.addChild(comboBox);
+
+
+        comboBox1 = new control.ComboBox();  
+        comboBox1.selectList = comboBox.curSelectChildArr; 
+        base.reflex.box.addChild(comboBox1);
+         
+ 
+        console.log('级联初始化当前选中值',comboBox.curSelectObj, comboBox1.curSelectObj);
+        
+        comboBox.change = new base.Handler(function () { 
+            comboBox1.selectList = this.curSelectChildArr; 
+            console.log('级联change事件', this.curSelectObj, comboBox1.curSelectObj);
+        }, comboBox)
+        
+        comboBox.click = new base.Handler(function () { 
+            console.log('级联点击事件');
+        })
+        
+        comboBox1.change = new base.Handler(function () {
+            console.log('级联子项change事件', this.curSelectObj);
+        }, comboBox1)
+        
+    }, this, "加载完成")); 
+</script>
+
+</body>
+ 
+</html>

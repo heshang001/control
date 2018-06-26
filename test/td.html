@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/tree.css">
+    <script src="src/lib/jquery-3.3.1.min.js"></script>
+    <script src="src/lib/vue.js"></script>
+    <!--core 基础类 必须在首位-->
+    <script src="src/js/root/base/EventPrope.js"></script>
+    <script src="src/js/root/base/DomCacheRefresh.js"></script>
+    <script src="src/js/root/base/EventBase.js"></script>
+    <script src="src/js/root/base/EventCycle.js"></script>
+    <script src="src/js/root/base/ControlDisplayBase.js"></script>
+    <script src="src/js/root/base/ControlEventBase.js"></script>
+    <script src="src/js/root/base/ControlReflex.js"></script>
+    <!--end core-->
+    <script src="src/js/root/errlog/ErrLog.js"></script>
+    <!--utils 工具类 -->
+    <script src="src/js/root/utils/utils.js"></script>
+    <!--end utils-->
+    <!--control 控件类 可以无序-->
+    <script src="src/js/root/control/Base.js"></script>
+    <script src="src/js/root/control/Box.js"></script>
+    <script src="src/js/root/control/Button.js"></script>
+    <script src="src/js/root/control/Label.js"></script>
+    <script src="src/js/root/control/Input.js"></script>
+    <script src="src/js/root/control/Radio.js"></script>
+    <script src="src/js/root/control/RadioGroup.js"></script>
+    <script src="src/js/root/control/Tree.js"></script>
+    <script src="src/js/root/control/TreeItem.js"></script>
+    <!--end control-->
+</head>
+
+<body>
+    <tree data-guid="J_tree" data-control-type="control.Tree">
+        <treeItem data-control-type="control.TreeItem" data-text="我的作品" data-icon="triangleRight" data-spreadBtn="1">
+            <treeItem data-control-type="control.TreeItem" data-text="剧情" data-icon="triangleRight" data-spreadBtn="1">
+                <treeItem data-control-type="control.TreeItem" data-text="我是子剧情1" data-icon="triangleRight" data-spreadBtn="1">
+                    <treeItem data-control-type="control.TreeItem" data-text="我是子剧情1" data-icon="triangleRight" data-spreadBtn="1">
+                    </treeItem>
+                    <treeItem data-control-type="control.TreeItem" data-text="我是子剧情2" data-icon="triangleRight" data-spreadBtn="1">
+                    </treeItem>
+                </treeItem>
+                <treeItem data-control-type="control.TreeItem" data-text="我是子剧情2" data-icon="triangleRight" data-spreadBtn="1">
+                </treeItem>
+            </treeItem>
+            <treeItem data-control-type="control.TreeItem" data-text="剧情1" data-icon="triangleRight" data-spreadBtn="1">
+            </treeItem>
+        </treeItem>
+    </tree>
+    <p style="height:40px;widht:100%;"></p>
+    <hr/>
+</body>
+
+</html>
+<script>
+
+
+base.reflex.ready(base.Handler.create(function() {
+  
+    let nd_tree = base.reflex.box.getChildById("J_tree");
+    nd_tree.dblclick = base.Handler.create(function() {
+        this.selectItem.spreadTree();
+    }, nd_tree)
+    nd_tree.click = base.Handler.create(function() {
+          if(this.selectPrevItem){
+              this.selectPrevItem.treeStyle('border',"none");
+          }
+          this.selectItem.treeStyle('border',"1px solid #000");
+    },nd_tree)
+
+    // nd_tree.contextmenu = base.Handler.create(function() {
+    //       console.log("我右击了"+this.selectItem.text);
+    // },nd_tree)
+
+    // nd_tree.dragbegin = base.Handler.create(function(){
+    //   console.log("开始拖拽"+this.selectItem.text);
+    // },nd_tree)
+
+    // nd_tree.dragmove = base.Handler.create(function(){
+    //   console.log("拖拽移动"+this.selectItem.text);
+    // },nd_tree)
+
+    // nd_tree.dragend = base.Handler.create(function(){
+    //   console.log("拖拽结束"+this.selectItem.text);
+    // },nd_tree)
+
+
+    // ============================ 手动添加树 结构  ======================================
+
+
+    let root_tree = new control.Tree();
+
+    let treeItem =  new control.TreeItem(null,
+      {
+        icon:'rhombus', 
+        text:"first",
+        spreadBtn:1
+      }
+    )
+    root_tree.addChild(treeItem);
+    base.reflex.box.addChild(root_tree);
+
+
+    let treeItemFirst1 =  new control.TreeItem(null,
+      {
+        icon:'rhombus', 
+        text:"second",
+        spreadBtn:1
+      }
+    )
+
+    let treeItemFirst2 =  new control.TreeItem(null,
+      {
+        icon:'rhombus', 
+        text:"second",
+        spreadBtn:1
+      }
+    )
+
+    treeItem.addChild(treeItemFirst1);
+    treeItem.addChild(treeItemFirst2);
+
+
+
+    let treeItemSecond1 =  new control.TreeItem(null,
+      {
+        icon:'rhombus', 
+        text:"third",
+        spreadBtn:1
+      }
+    )
+
+    let treeItemSecond2 =  new control.TreeItem(null,
+      {
+        icon:'rhombus', 
+        text:"third",
+        spreadBtn:1
+      }
+    )
+
+    treeItemFirst1.addChild(treeItemSecond1);
+    treeItemFirst1.addChild(treeItemSecond2);
+
+
+    root_tree.dblclick = base.Handler.create(function() {
+       this.selectItem.spreadTree();
+    }, root_tree)
+    root_tree.click = base.Handler.create(function() {
+          if(this.selectPrevItem){
+              this.selectPrevItem.treeStyle('border',"none");
+          }
+          this.selectItem.treeStyle('border',"1px solid #000");
+    },root_tree)
+    // ============================ JSON遍历添加树 结构  ======================================
+
+
+    let obj = {
+        tree:{
+          name:"开始树",
+          treeSon:[
+              {
+                name:"一级树",
+                treeSon:[
+                  {
+                    name:"二级树",
+                    treeSon:[
+                      {
+                        name:"三级树"
+                      },
+                      {
+                        name:"三级树2"
+                      }
+                    ]
+                  },
+                  {
+                    name:"二级树2"
+                  }
+                ]
+              },
+              {
+                name:"一级树1",
+                treeSon:[
+                  {
+                    name:"二级树"
+                  },
+                  {
+                    name:"二级树2"
+                  }
+                ]
+              }
+          ]
+        }
+
+    }
+
+
+    let jsonTree  = new control.Tree();
+    let _beginTree = new control.TreeItem(null,{
+        icon:'triangleRight', 
+        text:obj.tree.name,
+        spreadBtn:1
+    });
+    jsonTree.addChild(_beginTree,jsonTree);
+    base.reflex.box.addChild(jsonTree);
+    eachTree(obj.tree.treeSon,_beginTree);
+    
+    function eachTree(data,addObj){
+        data.forEach((item,index)=>{
+            let treeItem = new control.TreeItem(null,{
+                                icon:'triangleRight', 
+                                text:item.name,
+                                spreadBtn:1
+                      });
+            addObj.addChild(treeItem)
+            if(item.treeSon){
+              eachTree(item.treeSon,treeItem);
+            }
+        })
+    }
+
+    jsonTree.dblclick = base.Handler.create(function() {
+       this.selectItem.spreadTree();
+    }, jsonTree)
+    jsonTree.click = base.Handler.create(function() {
+          if(this.selectPrevItem){
+              this.selectPrevItem.treeStyle('border',"none");
+          }
+          this.selectItem.treeStyle('border',"1px solid #000");
+    },jsonTree)
+
+
+
+
+
+
+}, null, "加载完成"));
+</script>

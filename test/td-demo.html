@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/tree.css">
+    <script src="src/lib/jquery-3.3.1.min.js"></script>
+    <script src="src/lib/vue.js"></script>
+    <!--core 基础类 必须在首位-->
+    <script src="src/js/root/base/EventPrope.js"></script>
+    <script src="src/js/root/base/DomCacheRefresh.js"></script>
+    <script src="src/js/root/base/EventBase.js"></script>
+    <script src="src/js/root/base/EventCycle.js"></script>
+    <script src="src/js/root/base/ControlDisplayBase.js"></script>
+    <script src="src/js/root/base/ControlEventBase.js"></script>
+    <script src="src/js/root/base/ControlReflex.js"></script>
+    <!--end core-->
+    <script src="src/js/root/errlog/ErrLog.js"></script>
+    <!--utils 工具类 -->
+    <script src="src/js/root/utils/utils.js"></script>
+    <!--end utils-->
+    <!--control 控件类 可以无序-->
+    <script src="src/js/root/control/Base.js"></script>
+    <script src="src/js/root/control/Box.js"></script>
+    <script src="src/js/root/control/Button.js"></script>
+    <script src="src/js/root/control/Label.js"></script>
+    <script src="src/js/root/control/Input.js"></script>
+    <script src="src/js/root/control/Radio.js"></script>
+    <script src="src/js/root/control/RadioGroup.js"></script>
+    <script src="src/js/root/control/Tree.js"></script>
+    <script src="src/js/root/control/TreeItem.js"></script>
+    <script src="src/js/root/control/MenuItem.js"></script>
+    <script src="src/js/root/control/Menu.js"></script>
+    <script src="src/js/root/control/TextBox.js"></script>
+    <script src="src/js/root/control/CheckGroup.js"></script>
+    <script src="src/js/root/control/CheckBox.js"></script>
+    <script src="src/js/root/control/Image.js"></script>
+    <script src="src/js/root/control/ImgButton.js"></script>
+    <script src="src/js/root/control/Slider.js"></script>
+    <!--end control-->
+</head>
+<body>
+      <Tree data-control-type="control.Tree">
+        <TreeItem data-control-type="control.TreeItem" data-text="六趣" data-icon="triangleRight" data-spreadBtn="1">
+                <TreeItem data-control-type="control.TreeItem" data-text="第一章" data-icon="triangleRight" data-spreadBtn="1">
+                    <TreeItem data-control-type="control.TreeItem" data-text="剧情1" data-icon="triangleRight" data-spreadBtn="1">
+                            <Input data-control-type="control.Input" data-text="我是一个输入框"></Input>
+                    </TreeItem>
+                    <TreeItem data-control-type="control.TreeItem" data-text="剧情2" data-icon="triangleRight" data-spreadBtn="1">
+                        <textBox data-control-type="control.TextBox" data-showType="password" data-showValue="密码"></textBox>
+                    </TreeItem>
+                </TreeItem>
+                <TreeItem data-control-type="control.TreeItem" data-text="第二章" data-icon="triangleRight" data-spreadBtn="1">
+                    <TreeItem data-control-type="control.TreeItem" data-text="剧情1" data-icon="triangleRight" data-spreadBtn="1">
+                        <CheckGroup data-control-type="control.CheckGroup">
+                            <CheckBox data-control-type="control.CheckBox"  data-text="男"></CheckBox>
+                            <CheckBox data-control-type="control.CheckBox"  data-text="女"></CheckBox>
+                        </CheckGroup>
+                    </TreeItem>
+                    <TreeItem data-control-type="control.TreeItem" data-text="剧情2" data-icon="triangleRight" data-spreadBtn="1">
+
+                            <ImgButton data-control-type="control.ImgButton" data-normorl="./images/triangle-right.png" data-text="图片1"></ImgButton>
+                            <ImgButton data-control-type="control.ImgButton" data-normorl="./images/triangle-right.png" data-text="图片2"></ImgButton>
+                            
+                    </TreeItem>
+                </TreeItem>
+        </TreeItem>
+      </Tree>
+
+   
+</body>
+</html>
+<script>
+
+
+</script>

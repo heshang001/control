@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="src/css/main.css">
+    <link rel="stylesheet" href="src/css/UploadFile.css">
+    <link rel="stylesheet" href="src/css/comboBox.css">
+    <link rel="stylesheet" href="src/css/Menu.css">
+    <script src="src/lib/jquery-3.3.1.min.js"></script>
+    <script src="src/lib/vue.js"></script>
+    <script src="src/lib/md5.js"></script>
+    <!--core 基础类 必须在首位-->
+    <script src="src/js/root/base/EventPrope.js"></script>
+    <script src="src/js/root/base/DomCacheRefresh.js"></script>
+    <script src="src/js/root/base/EventBase.js"></script>
+    <script src="src/js/root/base/EventCycle.js"></script>
+    <script src="src/js/root/base/ControlDisplayBase.js"></script>
+    <script src="src/js/root/base/ControlEventBase.js"></script>
+    <script src="src/js/root/base/ControlReflex.js"></script>
+    <!--end core-->
+    <script src="src/js/root/errlog/ErrLog.js"></script>
+    <!--utils 工具类 -->
+    <script src="src/js/root/utils/utils.js"></script>
+    <!--end utils-->
+
+    <!--control 控件类 可以无序-->
+    <script src="src/js/root/control/Base.js"></script>
+    <script src="src/js/root/control/Button.js"></script>
+    <script src="src/js/root/control/Label.js"></script>
+    <script src="src/js/root/control/Box.js"></script>
+    <script src="src/js/root/control/Input.js"></script>
+    <script src="src/js/root/control/Radio.js"></script>
+    <script src="src/js/root/control/RadioGroup.js"></script>
+    <script src="src/js/root/control/CheckBox.js"></script>
+    <script src="src/js/root/control/CheckGroup.js"></script>
+    <script src="src/js/root/control/UploadFile.js"></script>
+    <script src="src/js/root/control/Menu.js"></script>
+    <script src="src/js/root/control/MenuItem.js"></script>
+    <script src="src/js/root/control/TextBox.js"></script>
+    <script src="src/js/root/control/ComboBox.js"></script>
+    <!--end control-->
+</head>
+<body style="width: 232px;height: 344px; font-size: small">
+<menu data-control-type="control.Menu" data-menuType="appMenu">
+    <menuItem data-control-type="control.MenuItem" data-label="查看(V)" data-index="0" data-type="normal" data-accelerator="Alt+V">
+        <menuItem data-control-type="control.MenuItem" data-label="标准型(T)" data-index="1" data-type="normal" data-accelerator="Alt+1"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-label="科学性(S)" data-index="1" data-type="normal" data-accelerator="Alt+2"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-label="程序员(P)" data-index="1" data-type="normal" data-accelerator="Alt+3"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-label="统计信息(A)" data-index="1" data-type="normal" data-accelerator="Alt+4"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-type="separator"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-label="历史记录(Y)" data-index="1" data-type="normal" data-accelerator="Ctrl+H"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-label="数字分组(I)" data-index="1" data-type="normal"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-type="separator"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-label="基本(B)" data-index="1" data-type="normal" data-accelerator="Ctrl+F4" evt-click="jb()"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-label="单位换算(U)" data-index="1" data-type="normal" data-accelerator="Ctrl+U" evt-click="dwhs()"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-label="日期计算(D)" data-index="1" data-type="normal" data-accelerator="Ctrl+E"></menuItem>
+        <menuItem data-control-type="control.MenuItem" data-label="工作表(W)" data-index="1" data-type="normal"></menuItem>
+    </menuItem>
+    <menuItem data-control-type="control.MenuItem" data-label="编辑(E)" data-index="0" data-type="normal" data-accelerator="Alt+E"></menuItem>
+    <menuItem data-control-type="control.MenuItem" data-label="帮助(H)" data-index="0" data-type="normal" data-accelerator="Alt+H"></menuItem>
+</menu>
+<div style="display: flex;background: linear-gradient(to top,rgb(217,228,241),rgb(237,244,252))">
+    <span class="showCalc" style="margin: 9px;position: relative; width: 214px;height: 240px;">
+        <textbox data-control-type="control.TextBox" style="margin: 3px; width: 100%"></textbox>
+        <div class="a" style="position: absolute;width: 200px;height: 33px;">
+            <button data-control-type="control.Button" data-text="MC"></button>
+            <button data-control-type="control.Button" data-text="MR"></button>
+            <button data-control-type="control.Button" data-text="MS"></button>
+            <button data-control-type="control.Button" data-text="M+"></button>
+            <button data-control-type="control.Button" data-text="M-"></button>
+        </div>
+        <div class="b" style="position: absolute;width: 200px;height: 33px;">
+            <button data-control-type="control.Button" data-text="←" ></button>
+            <button data-control-type="control.Button" data-text="CE"></button>
+            <button data-control-type="control.Button" data-text="C" ></button>
+            <button data-control-type="control.Button" data-text="±" ></button>
+            <button data-control-type="control.Button" data-text="√" ></button>
+        </div>
+        <div class="c" style="position: absolute;width: 120px;height: 99px;">
+            <button data-control-type="control.Button" data-text="7"></button>
+            <button data-control-type="control.Button" data-text="8"></button>
+            <button data-control-type="control.Button" data-text="9"></button>
+            <button data-control-type="control.Button" data-text="4"></button>
+            <button data-control-type="control.Button" data-text="5"></button>
+            <button data-control-type="control.Button" data-text="6"></button>
+            <button data-control-type="control.Button" data-text="1"></button>
+            <button data-control-type="control.Button" data-text="2"></button>
+            <button data-control-type="control.Button" data-text="3"></button>
+            <button data-control-type="control.Button" data-text="0" id="btnZero"></button>
+            <button data-control-type="control.Button" data-text="."></button>
+        </div>
+        <div class="d" style="position: absolute;width: 80px;height: 99px; float: left">
+            <button data-control-type="control.Button" data-text="/"></button>
+            <button data-control-type="control.Button" data-text="%"></button>
+            <button data-control-type="control.Button" data-text="*"></button>
+            <button data-control-type="control.Button" data-text="1/x"></button>
+            <button data-control-type="control.Button" data-text="-"></button>
+            <button data-control-type="control.Button" data-text="+"></button>
+            <button data-control-type="control.Button" data-text="=" id="btnEqual"></button>
+        </div>
+        <div class="e" style="position: absolute;width: 190px;height: 190px; float: left">
+            <radiogroup data-control-type="control.RadioGroup">
+                <radio data-control-type="control.Radio" data-text="度" data-selected="true"></radio>
+                <radio data-control-type="control.Radio" data-text="弧度"></radio>
+                <radio data-control-type="control.Radio" data-text="梯度"></radio>
+            </radiogroup>
+            <button data-control-type="control.Button" data-text=""></button>
+            <button data-control-type="control.Button" data-text="Inv"></button>
+            <button data-control-type="control.Button" data-text="In"></button>
+            <button data-control-type="control.Button" data-text="("></button>
+            <button data-control-type="control.Button" data-text=")"></button>
+
+            <button data-control-type="control.Button" data-text="Int"></button>
+            <button data-control-type="control.Button" data-text="sinh"></button>
+            <button data-control-type="control.Button" data-text="sin"></button>
+            <button data-control-type="control.Button" data-text="x^2"></button>
+            <button data-control-type="control.Button" data-text="n!"></button>
+
+            <button data-control-type="control.Button" data-text="dms"></button>
+            <button data-control-type="control.Button" data-text="cosh"></button>
+            <button data-control-type="control.Button" data-text="cos"></button>
+            <button data-control-type="control.Button" data-text="x^y"></button>
+            <button data-control-type="control.Button" data-text="y√x"></button>
+
+            <button data-control-type="control.Button" data-text="π"></button>
+            <button data-control-type="control.Button" data-text="tanh"></button>
+            <button data-control-type="control.Button" data-text="tan"></button>
+            <button data-control-type="control.Button" data-text="x^3"></button>
+            <button data-control-type="control.Button" data-text="3√x"></button>
+
+            <button data-control-type="control.Button" data-text="F-E"></button>
+            <button data-control-type="control.Button" data-text="Exp"></button>
+            <button data-control-type="control.Button" data-text="Mod"></button>
+            <button data-control-type="control.Button" data-text="log"></button>
+            <button data-control-type="control.Button" data-text="10^x"></button>
+        </div>
+    </span>
+    <span class="danweihuansuan" style="border: 1px solid rgb(136,154,173);margin: 12px 12px 12px 0px; width: 380px;height: 270px; padding: 12px;">
+        <div style="margin: 5px 0px 5px 0px; width: 100%"><label data-control-type="control.Label" data-text="选择要转换的单位类型" style="width: 300px;"></label></div>
+        <comb data-control-type="control.ComboBox" data-selectList="comboBoxLists.a" style="margin: 5px 0px 5px 0px; width: 100%"></comb>
+        <div><label data-control-type="control.Label" data-text="从" style="width: 300px;"></label></div>
+        <div style="margin: 5px 0px 5px 0px; width: 100%"><textbox data-control-type="control.TextBox" data-Text="输入值"></textbox></div>
+        <comb data-control-type="control.ComboBox" data-selectList="comboBoxLists.a" style="margin: 5px 0px 5px 0px; width: 100%"></comb>
+        <div><label data-control-type="control.Label" data-text="到" style="width: 300px;"></label></div>
+        <div style="margin: 5px 0px 5px 0px; width: 100%"><textbox data-control-type="control.TextBox" data-Text="输入值"></textbox></div>
+        <comb data-control-type="control.ComboBox" data-selectList="comboBoxLists.a" style="margin: 5px 0px 5px 0px; width: 100%"></comb>
+    </span>
+    <span class="riqijisuan" style="border: 1px solid rgb(136,154,173);margin: 12px 12px 12px 0px; width: 380px;height: 270px">
+b
+    </span>
+    <span class="diya" style="border: 1px solid rgb(136,154,173);margin: 12px 12px 12px 0px; width: 380px;height: 270px">
+
+    </span>
+</div>
+
+<script>
+    $(".danweihuansuan").hide();
+    $(".riqijisuan").hide();
+    $(".diya").hide();
+    $("button").css("margin","3px");
+    $("button").css("width","34px");
+    $("button").css("height","27px");
+    $("button").css("background","linear-gradient(to top,rgb(215,226,239),rgb(246,250,254))");
+
+    $(".a").css("left","0px");
+    $(".a").css("top","52px");
+    $(".b").css("left","0px");
+    $(".b").css("top","85px");
+    $(".c").css("left","0px");
+    $(".c").css("top","118px");
+    $(".d").css("left","120px");
+    $(".d").css("top","118px");
+    $("#btnZero").css("width","74px");
+    $("#btnEqual").css("width","74px");
+    var showRight = false;
+    var comboBoxLists={
+        a:[
+            {
+                value:"功率",
+                index:"0",
+                name: '功率',
+                child: []
+            },
+            {
+                value:"角度",
+                index:"1",
+                name: '角度',
+                child: []
+            },
+            {
+                value:"面积",
+                index:"2",
+                name: '面积',
+                child: []
+            },
+            {
+                value:"能量",
+                index:"3",
+                name: '能量',
+                child: []
+            },
+            {
+                value:"时间",
+                index:"4",
+                name: '时间',
+                child: []
+            },
+            {
+                value:"速率",
+                index:"5",
+                name: '速率',
+                child: []
+            },
+            {
+                value:"体积",
+                index:"6",
+                name: '体积',
+                child: []
+            },
+            {
+                value:"温度",
+                index:"7",
+                name: '温度',
+                child: []
+            },
+        ]
+    }
+    $(document).ready(function () {
+        $("button").mouseenter(function(){
+            $(this).css("background","linear-gradient(to top,rgb(255,220,114),rgb(255,244,144))");
+        })
+        $("button").mouseleave(function(){
+            $(this).css("background","linear-gradient(to top,rgb(215,226,239),rgb(246,250,254))");
+        })
+    })
+    base.reflex.ready(base.Handler.create(function () {
+    },this,"加载完成"));
+    
+    function jb() {
+        showRight = false;
+        let width = $("body").css("width");
+        $("body").css("width",width-370 + "px");
+        $(".danweihuansuan").hide();
+        $(".riqijisuan").hide();
+        $(".diya").hide();
+    }
+
+    /**
+     * 切换基本
+     */
+    function dwhs() {
+        showRight = true;
+        $("body").css("width","602px");
+        $(".danweihuansuan").show();
+        $(".riqijisuan").hide();
+        $(".diya").hide();
+    }
+
+    /**
+     * 切换科学性
+     */
+    function kxi(){
+        $("body").css("width",showRight?792:422 + "px");
+        $(".e").show();
+        $(".a").css("left","190px");
+        $(".a").css("top","52px");
+        $(".b").css("left","0px");
+        $(".b").css("top","85px");
+        $(".c").css("left","0px");
+        $(".c").css("top","118px");
+        $(".d").css("left","120px");
+        $(".d").css("top","118px");
+    }
+
+</script>
+</body>
+</html>

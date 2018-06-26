@@ -1,0 +1,45 @@
+/* 
+ * @Message:  
+ * @Author: 了恨 
+ * @Date: 2018-06-11 17:48:01 
+ * @Last Modified by: 了恨
+ * @Last Modified time: 2018-06-14 17:32:29
+ */
+
+/* Don't change,don't move! */
+.VERTICAL_SHOW{
+    transform: rotate(90deg);
+}
+div.HEART_SHOW{
+    background-color: rgba(0,0,0,0);
+}
+/* Don't change,don't move! */
+.normal_outer{
+    border: 3px solid #9ecff0;
+    background: #9ecff0;
+    border-radius: 5px;
+    position: relative; 
+    top: 30vh; 
+    left: 30vw;   
+}
+.normal_inner{
+    background: #4f64db;
+    border: 3px solid #4f64db;
+    border-radius: 5px;
+}
+.normal_slider{
+    background: #1fc543;
+    border-radius: 5px;
+    position: absolute;
+    top:-10px;
+}
+.normal_heart{
+    background: #1fc5b7;
+    border-radius: 3px;
+    position: absolute;
+    top: 5px;
+}
+.normal_slider:hover{
+    background: #198b28;
+    cursor: move;
+}

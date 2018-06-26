@@ -1,0 +1,78 @@
+/*** =========   layer  BEGIN  ========= ***/
+.layerWrapper{
+	display:block;
+}
+.layui-layer-shade{
+	position:fixed;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background-color:#000;
+	opacity:.3;
+	z-index:99999;
+}
+.layui-layer-content{
+	position:fixed;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	margin:auto;
+	width:260px;
+	height:154px;
+	background-color:white;
+	z-index:999999;
+}
+.layui-layer-content > header{
+    padding: 0 80px 0 20px;
+	width:100%;
+	height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    color: #333;
+    padding: 0 18px;
+    box-sizing: border-box;
+    background-color: #F8F8F8;
+    border:1px solid #eee;
+    border-radius: 2px 2px 0 0;
+
+}
+.layui-layer-content > section{
+    position: relative;
+    padding: 20px;
+    line-height: 24px;
+    word-break: break-all;
+    overflow: hidden;
+    font-size: 14px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.layui-layer-content > footer{
+    text-align: right;
+    padding: 0 15px 12px;
+    pointer-events: auto;
+    -webkit-user-select: none;
+}
+.layui-layer-content > footer > input{
+	height: 28px;
+    line-height: 28px;
+    margin: 5px 5px 0;
+    padding: 0 15px;
+    border: 1px solid #dedede;
+    background-color: #fff;
+    color: #333;
+    border-radius: 2px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+}
+.layui-layer-content > footer > input:nth-child(1){
+	border-color: #1E9FFF;
+    background-color: #1E9FFF;
+    color: #fff;
+}
+/*** =========   layer  END  ========= ***/
+
+
+

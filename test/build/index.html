@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/UploadFile.css"/>
+    <script src="lib/jquery-3.3.1.min.js"></script>
+    <script src="lib/vue.js"></script>
+    <script src="lib/md5.js"></script>
+    <!--core 基础类 必须在首位-->
+    <script src="js/base.core.js"></script>
+    <!--end core-->
+    <!--control 控件类 可以无序-->
+    <script src="js/control.core.js"></script>
+    <!--end control-->
+</head>
+<body>
+<b data-control-type="control.Label" data-guid="myLabel" data-text="注意:此网页只能上传后缀名为.mp3的音频文件"
+   style="color:red;margin-left: 33px;margin-top: 33px;display:block;"></b>
+<bbbb data-guid="uploadFileMy" data-control-type="control.UploadFile" data-text="上传文件"></bbbb>
+</body>
+<script type="text/javascript">
+    base.reflex.ready(base.Handler.create(function () {
+        var label = base.Controller.getItemById("myLabel");
+        label.text = "注意:此网页只能上传后缀名为.mp3的音频文件";
+        base.Controller.getItemById("uploadFileMy").upFileType = ["audio/mp3","audio/mpeg"];
+        let size = utils.Href.getQureryString('filesize');
+        if (size && parseInt(size) !== NaN) {
+            label.text += ",文件大小不能大于 " + size + " k";
+            base.Controller.getItemById("uploadFileMy").maxSize = parseInt(size) * 1024;
+        }
+    }, this, "加载完成"));
+</script>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="src/css/main.css">
+    <link rel="stylesheet" href="src/css/UploadFile.css">
+    <script src="src/lib/jquery-3.3.1.min.js"></script>
+    <script src="src/lib/vue.js"></script>
+    <script src="src/lib/md5.js"></script>
+    <!--core 基础类 必须在首位-->
+    <script src="src/js/root/base/EventPrope.js"></script>
+    <script src="src/js/root/base/DomCacheRefresh.js"></script>
+    <script src="src/js/root/base/EventBase.js"></script>
+    <script src="src/js/root/base/EventCycle.js"></script>
+    <script src="src/js/root/base/ControlDisplayBase.js"></script>
+    <script src="src/js/root/base/ControlEventBase.js"></script>
+    <script src="src/js/root/base/ControlReflex.js"></script>
+    <!--end core-->
+    <script src="src/js/root/errlog/ErrLog.js"></script>
+    <!--utils 工具类 -->
+    <script src="src/js/root/utils/utils.js"></script>
+    <!--end utils-->
+
+    <!--control 控件类 可以无序-->
+    <script src="src/js/root/control/Base.js"></script>
+    <script src="src/js/root/control/Button.js"></script>
+    <script src="src/js/root/control/Label.js"></script>
+    <script src="src/js/root/control/Box.js"></script>
+    <script src="src/js/root/control/Input.js"></script>
+    <script src="src/js/root/control/Radio.js"></script>
+    <script src="src/js/root/control/RadioGroup.js"></script>
+    <script src="src/js/root/control/CheckBox.js"></script>
+    <script src="src/js/root/control/CheckGroup.js"></script>
+    <script src="src/js/root/control/UploadFile.js"></script>
+    <!--end control-->
+</head>
+<body>
+<button data-control-type="control.Button" evt-click="ccc()" data-text="xxxxx"></button>
+<b data-control-type="control.Label" data-guid="myLabel" data-text="注意:此网页只能上传后缀名为.mp3的音频文件"
+   style="color:red;margin-left: 33px;margin-top: 33px;display:block;"></b>
+<bbbb data-guid="uploadFileMy" data-control-type="control.UploadFile" data-text="上传文件"></bbbb>
+<!--<group data-control-type="control.CheckGroup" data-groupName="组合1">-->
+<!--<checkBox data-control-type="control.CheckBox" data-config="b" data-checked="true"></checkBox>-->
+<!--<checkBox data-control-type="control.CheckBox" data-checked="false" data-text="我是复选框4"></checkBox>-->
+<!--</group>-->
+<script>
+    function ccc(e) {
+        debugger;
+    }
+
+    var b = {
+        text: "xxxxx"
+    };
+    var checkBox;
+    var checkBox1;
+    var checkBoxGroup;
+    base.reflex.ready(base.Handler.create(function () {
+        var label = base.Controller.getItemById("myLabel");
+        label.text = "注意:此网页只能上传后缀名为.mp3的音频文件";
+        base.Controller.getItemById("uploadFileMy").upFileType = ["audio/mp3","audio/mpeg"];
+        let size = utils.Href.getQureryString('filesize');
+        if (size && parseInt(size) !== NaN) {
+            label.text += ",文件大小不能大于" + size + "k";
+            base.Controller.getItemById("uploadFileMy").maxSize = parseInt(size) * 1024;
+        }
+        // checkBox = new control.CheckBox("复选框1", 0);
+        // checkBox1 = new control.CheckBox("复选框2", 1);
+        // checkBoxGroup = new control.CheckGroup("xxx");
+        // checkBoxGroup.addChild(checkBox);
+        // checkBoxGroup.addChild(checkBox1);
+        // checkBoxGroup.change = new base.Handler(function () {
+        //     console.log(this.selectIndex);
+        // }, checkBoxGroup)
+        // base.reflex.box.addChild(checkBoxGroup);
+        // base.reflex.box.addChild(checkBox1);
+    }, this, "加载完成"));
+
+</script>
+<!--<div>-->
+<!--<input data-control-type="control.Radio" data-text="第一个">-->
+<!--</div>-->
+<!--<Input data-control-type="control.Input" data-text="我是第一个按钮" evt-onload="abc(this,this.text+'初始化')"/>-->
+<!--<zzz class="zz" data-control-type="control.Box" data-guid="a1" data-text="我是Box1"-->
+<!--evt-onload="abc(this,this.text+'初始化')">-->
+<!--<span data-guid="a4"  data-control-type="control.Button" data-text="点击我带你飞" evt-click="b.abc(this,this.text)"></span>-->
+<!--</zzz>-->
+<!--<ccc class="zz" data-control-type="control.Button" data-guid="a2">-->
+<!--<ccc1 data-control-type="control.Input" data-guid="a3" data-text="我是输入框"></ccc1>-->
+<!--</ccc>-->
+<!--<div style="height: 100px;">这里是一个正常的div a52-a53</div>-->
+<!--<bbb data-control-type="control.Button" data-guid="a4">-->
+<!--<bbb1 data-control-type="control.Button" data-guid="a50">-->
+<!--<bbb2 data-control-type="control.Input" data-guid="a6"></bbb2>-->
+<!--</bbb1>-->
+
+<!--<bbb1 data-control-type="control.Button" data-guid="a51">-->
+<!--<bbb2 data-control-type="control.Input" data-guid="a6"></bbb2>-->
+<!--</bbb1>-->
+<!--<div>这里是一个正常的div哦</div>-->
+<!--<bbb1 data-control-type="control.Button" data-guid="a52">-->
+<!--<bbb2 data-control-type="control.Input" data-guid="a6">6</bbb2>-->
+<!--</bbb1>-->
+<!--<bbb1 data-control-type="control.Button" data-guid="a53">-->
+<!--<bbb2 data-control-type="control.Input" data-guid="a6">6</bbb2>-->
+<!--</bbb1>-->
+<!--</bbb>-->
+<!--<div>这里是一个正常的div</div>-->
+<!--<eee data-control-type="control.Button" data-guid="a7">-->
+<!--<eee1 data-control-type="control.Input" data-guid="a8">8</eee1>-->
+<!--</eee>-->
+<!--<aaa data-control-type="control.Button" data-guid="a9" data-text="这是第九个按钮" evt-click="abc(this,this.text)">9</aaa>-->
+<!--<div>-->
+<!--<div>-->
+<!--<span>1</span>-->
+<!--<span>2</span>-->
+<!--<span>3</span>-->
+<!--<span>4</span>-->
+<!--</div>-->
+
+<!--<button class="xxxxx" data-control-type="control.Button" data-guid="btn1" data-text="按钮1"-->
+<!--evt-click="b.clickBtn(this,this.text)"></button>-->
+<!--<button data-control-type="control.Button" data-guid="btn2" data-text="按钮2"-->
+<!--evt-click="b.clickBtn(this,this.text)"></button>-->
+<!--<button data-control-type="control.Button" data-guid="btn3" data-text="按钮3"-->
+<!--evt-click="b.clickBtn(this,this.text)"></button>-->
+<!--</div>-->
+<!--<div data-guid="myTab">-->
+<!--<div data-guid="myTabBox1" data-control-type="control.Box" data-text="我是控件1">-->
+<!--<div data-guid="radioGroup1" data-control-type="control.RadioGroup"-->
+<!--evt-change="b.change(this.selectIndex,this.selectItem)" data-selectIndex="1" data-name="xxx">-->
+<!--<input data-guid="radio1" data-control-type="control.Radio" data-text="xxx" data-value="10"></input>-->
+<!--<input data-guid="radio2" data-control-type="control.Radio" data-text="xx1"></input>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div data-control-type="control.Box" data-text="我是控件2" style="display:none"></div>-->
+<!--<div data-control-type="control.Box" data-text="我是控件3" style="display:none"></div>-->
+<!--</div>-->
+
+</body>
+<script type="text/javascript">
+    // var b = {
+    //     change(index, item) {
+    //         console.log(index, item);
+    //     },
+    //     clickBtn(e, str) {
+    //         console.log(str);
+    //         let t = base.reflex.box.getChildById("myTab");
+    //         if (str == "按钮2") {
+    //             let b = new control.Button("我是追加的");
+    //             t.childList[1].style("display", "block");
+    //             t.childList[0].style("display", "none");
+    //             t.childList[2].style("display", "none");
+    //         }
+    //         if (str == "按钮1") {
+    //             t.childList[1].style("display", "none");
+    //             t.childList[0].style("display", "block");
+    //             t.childList[2].style("display", "none");
+    //         }
+    //         if (str == "按钮3") {
+    //             t.childList[1].style("display", "none");
+    //             t.childList[0].style("display", "none");
+    //             t.childList[2].style("display", "block");
+    //         }
+    //
+    //     },
+    //     ready: function (e, args) {
+    //         let t = base.reflex.box.getChildById("myTab");
+    //         for (let i in t.childList) {
+    //             if (i == 0) {
+    //                 continue;
+    //             }
+    //             // t[i].style("display","node");
+    //             // console.log(t.childList[i]);
+    //             t.childList[i].style({"display": "none"});
+    //         }
+    //         var b = new control.Button("xxxx");
+    //         b.config = {text: "111", ccc: "xxx"};
+    //         t.addChild(b);
+    //     }
+    // }
+    // this.ccc.get();
+    // base.reflex.ready(base.Handler.create(b.ready, b, "加载完成"));
+
+    // base.reflex.ready(base.Handler.create(ready, this, "xxxx"));
+    // base.reflex.ready(base.Handler.create(ready1, this, "xxx"));
+    //
+    // function ready(box) {
+    //     console.log("加载完成", base.reflex.box);
+    // }
+    //
+    // let btn = new control.Button(null, "按钮1");
+    // let btn1 = new control.Button(null, "按钮2");
+    // let btn3 = new control.Button(null, "按钮3");
+    //
+    // function ready1() {
+    //     // btn3.style()
+    //     btn.addChild(btn1);
+    //     btn1.addChild(btn3);
+    //     // base.reflex.box.addChild(btn);
+    //     $('body').append(btn.dom);
+    // }
+    //
+    // function abc(e, text) {
+    //     console.log(e, text);
+    // }
+    //
+    // function ccc(a, b) {
+    //     console.log(a, b);
+    // }
+    //
+    // // btn.click = handler1.next(handler2).next(handler3).next(handler4);
+    // btn.click = base.Handler.create(ccc, this, "点击按钮1");
+    // btn1.click = handler2;
+
+    // let box = new control.Box();
+    // $('body').append(box.dom);
+    // let btn = new control.Button(null, "xxxxxx");
+    // btn.text = "xxxx";
+    // var b = {
+    //     abc: function (e, args) {
+    //         btn.dispatch("a");
+    //     }
+    // }
+    // btn.click = base.Handler.create(b.abc, b, "aaa");
+    //
+    // btn.on("a", base.Handler.create(function (e) {
+    //     console.log("执行我");
+    // }, this), "xxx");
+    //
+    //
+    // box.addChild(btn);
+    //
+    // let label = new control.Label(null, "xx111xx");
+    // box.addChild(label);
+
+    // let arr = ["/", "*", "+", "-", "(", ")", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "="];
+    //
+    // let input = new Input();
+    // box.addChild(input);
+    //
+    // function clickBtn(e) {
+    //     if (e.text != "=")
+    //         input.text += e.text;
+    //     else {
+    //         try {
+    //             label.text = "结果为:" + eval(input.text);
+    //         } catch (e) {
+    //             label.text = "输入的表达式有误，检查你的表达式!";
+    //         }
+    //     }
+    // }
+    //
+    // let t_box = null;
+    // for (let i in arr) {
+    //     if (i % 3 == 0) {
+    //         t_box = new Box();
+    //         box.addChild(t_box);
+    //     }
+    //     let b = new Button(null, arr[i]);
+    //     b.click = Handler.create(clickBtn, this);
+    //     t_box.addChild(b);
+    //
+    // }
+    // var label = new Label(null, "结果为:");
+    // box.addChild(label);
+
+
+    // var label1 = new Label(null, "结果1为:");
+    // box.addChild(label1);
+
+
+    //下面为性能测试
+    // let test_box = null;
+    // for (let i = 0; i < 5000; i++) {
+    //     let b = new Button(null, "测试按钮" + i);
+    //     if (i % 20 == 0) {
+    //         test_box = new Box();
+    //         box.addChild(test_box);
+    //     }
+    //     b.click(function (e, index) {
+    //         console.log(index);
+    //     }, this, i);
+    //     test_box.addChild(b);
+    // }
+</script>
+</html>
